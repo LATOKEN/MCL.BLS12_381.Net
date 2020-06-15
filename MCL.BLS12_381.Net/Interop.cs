@@ -205,21 +205,20 @@ namespace MCL.BLS12_381.Net
     public unsafe delegate void mclBn_millerLoop(void* z, void* x, void* y);
 
     [SymbolName(nameof(mclBn_G2LagrangeInterpolation))]
-    public unsafe delegate int mclBn_G2LagrangeInterpolation(void* res, void* xVec, void* yVec, ulong k);
+    public unsafe delegate int mclBn_G2LagrangeInterpolation(G2* res, Fr* xVec, G2* yVec, ulong k);
 
     [SymbolName(nameof(mclBn_G1LagrangeInterpolation))]
-    public unsafe delegate int mclBn_G1LagrangeInterpolation(void* res, void* xVec, void* yVec, ulong k);
-
-
+    public unsafe delegate int mclBn_G1LagrangeInterpolation(G1* res, Fr* xVec, G1* yVec, ulong k);
+    
     [SymbolName(nameof(mclBn_FrLagrangeInterpolation))]
-    public unsafe delegate int mclBn_FrLagrangeInterpolation(void* res, void* xVec, void* yVec, ulong k);
+    public unsafe delegate int mclBn_FrLagrangeInterpolation(Fr* res, Fr* xVec, Fr* yVec, ulong k);
 
     [SymbolName(nameof(mclBn_FrEvaluatePolynomial))]
-    public unsafe delegate int mclBn_FrEvaluatePolynomial(void* res, void* cVec, ulong k, void* at);
+    public unsafe delegate int mclBn_FrEvaluatePolynomial(Fr* res, Fr* cVec, ulong k, Fr* at);
 
     [SymbolName(nameof(mclBn_G1EvaluatePolynomial))]
-    public unsafe delegate int mclBn_G1EvaluatePolynomial(void* res, void* cVec, ulong k, void* at);
+    public unsafe delegate int mclBn_G1EvaluatePolynomial(G1* res, G1* cVec, ulong k, Fr* at);
 
     [SymbolName(nameof(mclBn_G2EvaluatePolynomial))]
-    public unsafe delegate int mclBn_G2EvaluatePolynomial(void* res, void* cVec, ulong k, void* at);
+    public unsafe delegate int mclBn_G2EvaluatePolynomial(G2* res, G2* cVec, ulong k, Fr* at);
 }

@@ -1,4 +1,3 @@
-using System.Linq;
 using NUnit.Framework;
 
 namespace MCL.BLS12_381.Net.Test

@@ -1,7 +1,4 @@
 using System;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 namespace MCL.BLS12_381.Net
 {
@@ -41,7 +38,7 @@ namespace MCL.BLS12_381.Net
         internal readonly Lazy<mclBnG1_deserialize> MclBnG1Deserialize;
         internal readonly Lazy<mclBnG1_getStr> MclBnG1GetStr;
         internal readonly Lazy<mclBnG1_hashAndMapTo> MclBnG1HashAndMapTo;
-        
+
         internal readonly Lazy<mclBnG2_clear> MclBnG2Clear;
         internal readonly Lazy<mclBnG2_isValid> MclBnG2IsValid;
         internal readonly Lazy<mclBnG2_isEqual> MclBnG2IsEqual;
@@ -55,7 +52,7 @@ namespace MCL.BLS12_381.Net
         internal readonly Lazy<mclBnG2_deserialize> MclBnG2Deserialize;
         internal readonly Lazy<mclBnG2_getStr> MclBnG2GetStr;
         internal readonly Lazy<mclBnG2_hashAndMapTo> MclBnG2HashAndMapTo;
-        
+
         internal readonly Lazy<mclBnGT_clear> MclBnGtClear;
         internal readonly Lazy<mclBnGT_setInt32> MclBnGtSetInt32;
         internal readonly Lazy<mclBnGT_isEqual> MclBnGtIsEqual;
@@ -71,7 +68,7 @@ namespace MCL.BLS12_381.Net
         internal readonly Lazy<mclBnGT_serialize> MclBnGtSerialize;
         internal readonly Lazy<mclBnGT_deserialize> MclBnGtDeserialize;
         internal readonly Lazy<mclBnGT_getStr> MclBnGtGetStr;
-        
+
         internal readonly Lazy<mclBn_pairing> MclBnPairing;
         internal readonly Lazy<mclBn_finalExp> MclBnFinalExp;
         internal readonly Lazy<mclBn_millerLoop> MclBnMillerLoop;
@@ -81,7 +78,7 @@ namespace MCL.BLS12_381.Net
         internal readonly Lazy<mclBn_FrEvaluatePolynomial> MclBnFrEvaluatePolynomial;
         internal readonly Lazy<mclBn_G1EvaluatePolynomial> MclBnG1EvaluatePolynomial;
         internal readonly Lazy<mclBn_G2EvaluatePolynomial> MclBnG2EvaluatePolynomial;
-        
+
         const string Lib = "mclbn384_256";
 
         public static string LibPath => LibPathLazy.Value;
@@ -127,7 +124,7 @@ namespace MCL.BLS12_381.Net
             MclBnG1Deserialize = LazyDelegate<mclBnG1_deserialize>();
             MclBnG1GetStr = LazyDelegate<mclBnG1_getStr>();
             MclBnG1HashAndMapTo = LazyDelegate<mclBnG1_hashAndMapTo>();
-            
+
             MclBnG2Clear = LazyDelegate<mclBnG2_clear>();
             MclBnG2IsValid = LazyDelegate<mclBnG2_isValid>();
             MclBnG2IsEqual = LazyDelegate<mclBnG2_isEqual>();
@@ -141,7 +138,7 @@ namespace MCL.BLS12_381.Net
             MclBnG2Deserialize = LazyDelegate<mclBnG2_deserialize>();
             MclBnG2GetStr = LazyDelegate<mclBnG2_getStr>();
             MclBnG2HashAndMapTo = LazyDelegate<mclBnG2_hashAndMapTo>();
-            
+
             MclBnGtClear = LazyDelegate<mclBnGT_clear>();
             MclBnGtSetInt32 = LazyDelegate<mclBnGT_setInt32>();
             MclBnGtIsEqual = LazyDelegate<mclBnGT_isEqual>();
@@ -157,7 +154,7 @@ namespace MCL.BLS12_381.Net
             MclBnGtSerialize = LazyDelegate<mclBnGT_serialize>();
             MclBnGtDeserialize = LazyDelegate<mclBnGT_deserialize>();
             MclBnGtGetStr = LazyDelegate<mclBnGT_getStr>();
-            
+
             MclBnPairing = LazyDelegate<mclBn_pairing>();
             MclBnFinalExp = LazyDelegate<mclBn_finalExp>();
             MclBnMillerLoop = LazyDelegate<mclBn_millerLoop>();
@@ -174,7 +171,7 @@ namespace MCL.BLS12_381.Net
             if (error != 0) throw new InvalidOperationException("mclBn_init returned error: " + error);
         }
 
-        
+
         Lazy<TDelegate> LazyDelegate<TDelegate>()
         {
             var symbol = SymbolNameCache<TDelegate>.SymbolName;
@@ -184,70 +181,84 @@ namespace MCL.BLS12_381.Net
             );
         }
 
-        // public G2 LagrangeInterpolateG2(Fr[] xs, G2[] ys)
-        // {
-        //     if (xs.Length != ys.Length) throw new ArgumentException("arrays are unequal length");
-        //     var res = new G2();
-        //     if (MclImports.mclBn_G2LagrangeInterpolation(ref res, xs, ys, xs.Length) != 0)
-        //         throw new Exception("Lagrange interpolation failed");
-        //     return res;
-        // }
-        //
-        // public G1 LagrangeInterpolateG1(Fr[] xs, G1[] ys)
-        // {
-        //     if (xs.Length != ys.Length) throw new ArgumentException("arrays are unequal length");
-        //     var res = new G1();
-        //     if (MclImports.mclBn_G1LagrangeInterpolation(ref res, xs, ys, xs.Length) != 0)
-        //         throw new Exception("Lagrange interpolation failed");
-        //     return res;
-        // }
-        //
-        // public Fr LagrangeInterpolateFr(Fr[] xs, Fr[] ys)
-        // {
-        //     if (xs.Length != ys.Length) throw new ArgumentException("arrays are unequal length");
-        //     var res = new Fr();
-        //     if (MclImports.mclBn_FrLagrangeInterpolation(ref res, xs, ys, xs.Length) != 0)
-        //         throw new Exception("Lagrange interpolation failed");
-        //     return res;
-        // }
-        //
-        // public GT Pairing(G1 x, G2 y)
-        // {
-        //     var res = new GT();
-        //     MclImports.mclBn_pairing(ref res, ref x, ref y);
-        //     return res;
-        // }
-        //
-        // public Fr GetValue(Fr[] poly, Fr at)
-        // {
-        //     var res = Fr.Zero;
-        //     if (MclImports.mclBn_FrEvaluatePolynomial(ref res, poly, poly.Length, ref at) != 0)
-        //         throw new Exception("Polynomial evaluation failed");
-        //     return res;
-        // }
-        //
-        // public G1 GetValue(G1[] poly, Fr at)
-        // {
-        //     var res = G1.Zero;
-        //     if (MclImports.mclBn_G1EvaluatePolynomial(ref res, poly, poly.Length, ref at) != 0)
-        //         throw new Exception("Polynomial evaluation failed");
-        //     return res;
-        // }
-        //
-        // public G2 GetValue(G2[] poly, Fr at)
-        // {
-        //     var res = G2.Zero;
-        //     if (MclImports.mclBn_G2EvaluatePolynomial(ref res, poly, poly.Length, ref at) != 0)
-        //         throw new Exception("Polynomial evaluation failed");
-        //     return res;
-        // }
-        //
-        // public Fr[] Powers(Fr x, int n)
-        // {
-        //     var result = new Fr[n];
-        //     result[0] = Fr.One;
-        //     for (var i = 1; i < n; ++i) result[i] = result[i - 1] * x;
-        //     return result;
-        // }
+        public static G2 LagrangeInterpolate(Fr[] xs, G2[] ys)
+        {
+            if (xs.Length != ys.Length) throw new ArgumentException("arrays are unequal length");
+            unsafe
+            {
+                var res = new G2();
+                fixed (Fr* xVec = xs)
+                fixed (G2* yVec = ys)
+                    Imports.MclBnG2LagrangeInterpolation.Value(&res, xVec, yVec, (ulong) xs.Length);
+                return res;
+            }
+        }
+
+        public static G1 LagrangeInterpolate(Fr[] xs, G1[] ys)
+        {
+            if (xs.Length != ys.Length) throw new ArgumentException("arrays are unequal length");
+            unsafe
+            {
+                var res = new G1();
+                fixed (Fr* xVec = xs)
+                fixed (G1* yVec = ys)
+                    Imports.MclBnG1LagrangeInterpolation.Value(&res, xVec, yVec, (ulong) xs.Length);
+                return res;
+            }
+        }
+
+        public static Fr LagrangeInterpolate(Fr[] xs, Fr[] ys)
+        {
+            if (xs.Length != ys.Length) throw new ArgumentException("arrays are unequal length");
+            unsafe
+            {
+                var res = new Fr();
+                fixed (Fr* xVec = xs)
+                fixed (Fr* yVec = ys)
+                    Imports.MclBnFrLagrangeInterpolation.Value(&res, xVec, yVec, (ulong) xs.Length);
+                return res;
+            }
+        }
+
+        public static Fr EvaluatePolynomial(Fr[] poly, Fr at)
+        {
+            unsafe
+            {
+                var res = new Fr();
+                fixed (Fr* cVec = poly)
+                    Imports.MclBnFrEvaluatePolynomial.Value(&res, cVec, (ulong) poly.Length, &at);
+                return res;
+            }
+        }
+
+        public static G1 EvaluatePolynomial(G1[] poly, Fr at)
+        {
+            unsafe
+            {
+                var res = new G1();
+                fixed (G1* cVec = poly)
+                    Imports.MclBnG1EvaluatePolynomial.Value(&res, cVec, (ulong) poly.Length, &at);
+                return res;
+            }
+        }
+
+        public static G2 EvaluatePolynomial(G2[] poly, Fr at)
+        {
+            unsafe
+            {
+                var res = new G2();
+                fixed (G2* cVec = poly)
+                    Imports.MclBnG2EvaluatePolynomial.Value(&res, cVec, (ulong) poly.Length, &at);
+                return res;
+            }
+        }
+
+        public static Fr[] Powers(Fr x, int n)
+        {
+            var result = new Fr[n];
+            result[0] = Fr.One;
+            for (var i = 1; i < n; ++i) result[i] = result[i - 1] * x;
+            return result;
+        }
     }
 }
