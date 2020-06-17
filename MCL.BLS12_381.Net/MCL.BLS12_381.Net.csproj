@@ -5,10 +5,25 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>8</LangVersion>
         <Nullable>enable</Nullable>
+        <Version>0.0.1</Version>
+        <Title>MCL.BLS12_381.Net</Title>
+        <Authors>Skird</Authors>
+        <Description>
+            Netstandard 2.1 wrapper for MCL (https://github.com/herumi/mcl/) library.
+            Provides interface to work with BLS12-381 elliptic curve and corresponding pairing.
+            Use MCL.BLS12_381.Native package to get platform specific binaries for common platforms.
+        </Description>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageTags>MCL;BLS12-381;pairing;elliptic curve;cryptography</PackageTags>
+        <IncludeSource>true</IncludeSource>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/Skird/MCL.BLS12_381.Net.git</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/Skird/MCL.BLS12_381.Net</PackageProjectUrl>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MCL.BLS12_381.Native" Version="0.0.4" />
+        <PackageReference Include="MCL.BLS12_381.Native" Version="0.0.4"/>
     </ItemGroup>
 
 </Project>
