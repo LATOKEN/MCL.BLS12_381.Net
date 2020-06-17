@@ -177,7 +177,7 @@ namespace MCL.BLS12_381.Net
             var symbol = SymbolNameCache<TDelegate>.SymbolName;
             return new Lazy<TDelegate>(
                 () => LoadLibNative.GetDelegate<TDelegate>(LibPtr.Value, symbol),
-                false
+                true
             );
         }
 

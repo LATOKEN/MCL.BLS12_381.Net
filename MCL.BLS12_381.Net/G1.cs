@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -70,6 +71,7 @@ namespace MCL.BLS12_381.Net
             }
         }
 
+        [Pure]
         public byte[] ToBytes()
         {
             unsafe
@@ -85,6 +87,7 @@ namespace MCL.BLS12_381.Net
             }
         }
 
+        [Pure]
         public byte[] ToBytes(IoMode ioMode)
         {
             unsafe
