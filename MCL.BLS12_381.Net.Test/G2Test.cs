@@ -8,20 +8,25 @@ namespace MCL.BLS12_381.Net.Test
         public void Setup()
         {
         }
-        
+
         [Test]
         public void TestZero()
         {
             Assert.IsTrue(G2.Zero.IsValid());
             Assert.IsTrue(G2.Zero.IsZero());
             Assert.AreEqual(G2.Zero, G2.Zero);
-            // Assert.AreNotEqual(G2.Zero, G2.Generator); // TODO: WTF
-            // Assert.IsTrue(G2.Zero != G2.Generator);
+            Assert.AreNotEqual(G2.Zero, G2.Generator);
+            Assert.IsTrue(G2.Zero != G2.Generator);
             Assert.AreEqual(G2.Zero, G2.Zero + G2.Zero);
             var rnd = G2.GetGenerator() * Fr.GetRandom();
             Assert.AreEqual(G2.Zero + rnd, rnd);
             Assert.AreEqual(rnd + G2.Zero, rnd);
             Assert.AreEqual(rnd * Fr.Zero, G2.Zero);
+            Assert.AreEqual(
+                "G2(000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)",
+                G2.Zero.ToString()
+            );
+            Assert.AreNotEqual(G2.Zero, G1.Zero);
         }
 
         [Test]
@@ -30,11 +35,17 @@ namespace MCL.BLS12_381.Net.Test
             Assert.IsTrue(G2.Generator.IsValid());
             Assert.IsFalse(G2.Generator.IsZero());
             Assert.AreEqual(G2.Generator, G2.Generator);
-            // Assert.AreNotEqual(G2.Zero, G2.Generator); // TODO: WTF?
-            // Assert.IsTrue(G2.Zero != G2.Generator);
+            Assert.AreNotEqual(G2.Zero, G2.Generator); // TODO: WTF?
+            Assert.IsTrue(G2.Zero != G2.Generator);
+            Assert.AreNotEqual(G2.Generator, G2.Generator * Fr.FromInt(2));
             Assert.AreEqual(G2.Generator - G2.Generator, G2.Zero);
             Assert.AreEqual(G2.Generator.Double(), G2.Generator + G2.Generator);
             Assert.AreEqual(G2.Generator.Double(), G2.Generator * Fr.FromInt(2));
+            Assert.AreEqual(
+                "G2(f1437606f337b000f00d69507434dbbd3b2abfa8a291d88551d92309fe3c222e0790fc847e849eb984bb807cba59170a0a63480e9457a375705ea2aba224a711e717ecddb224feeb738630945581bda24389f8fecf7865724361aec550e44919)",
+                G2.Generator.ToString()
+            );
+            Assert.AreNotEqual(G1.Generator, G2.Generator);
         }
 
         [Test]

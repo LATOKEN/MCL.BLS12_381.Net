@@ -35,6 +35,12 @@ namespace MCL.BLS12_381.Net.Test
             Assert.AreEqual(Fr.Zero * rnd, Fr.Zero);
             Assert.AreEqual(rnd * Fr.Zero, Fr.Zero);
             Assert.AreEqual(Fr.Zero, Fr.Zero.Inverse()); // NB
+            Assert.AreEqual(
+                "Fr(0000000000000000000000000000000000000000000000000000000000000000)",
+                Fr.Zero.ToString()
+            );
+            Assert.AreNotEqual(Fr.Zero, G1.Zero);
+            Assert.AreNotEqual(Fr.Zero, G2.Zero);
         }
 
         [Test]
@@ -52,6 +58,12 @@ namespace MCL.BLS12_381.Net.Test
             Assert.AreEqual(rnd * Fr.One, rnd);
             Assert.AreEqual(rnd / Fr.One, rnd);
             Assert.AreEqual(Fr.One, Fr.One.Inverse());
+            Assert.AreEqual(
+                "Fr(0100000000000000000000000000000000000000000000000000000000000000)",
+                Fr.One.ToString()
+            );
+            Assert.AreNotEqual(Fr.One, G1.Generator);
+            Assert.AreNotEqual(Fr.One, G2.Generator);
         }
 
         [Test]

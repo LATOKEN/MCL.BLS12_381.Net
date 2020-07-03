@@ -29,6 +29,13 @@ namespace MCL.BLS12_381.Net.Test
             Assert.AreEqual(GT.Zero, GT.Zero.Inverse()); // NB
             rnd.Clear();
             Assert.AreEqual(GT.Zero, rnd);
+            Console.WriteLine(GT.Zero.ToString());
+            Console.WriteLine(GT.One.ToString());
+            Assert.AreEqual(
+                $"GT({new string('0', 1152)})",
+                GT.Zero.ToString()
+            );
+            Assert.AreNotEqual(GT.Zero, Fr.Zero);
         }
 
         [Test]
@@ -46,6 +53,11 @@ namespace MCL.BLS12_381.Net.Test
             Assert.AreEqual(rnd * GT.One, rnd);
             Assert.AreEqual(rnd / GT.One, rnd);
             Assert.AreEqual(GT.One, GT.One.Inverse());
+            Assert.AreEqual(
+                $"GT(01{new string('0', 1150)})",
+                GT.One.ToString()
+            );
+            Assert.AreNotEqual(GT.One, Fr.One);
         }
 
         [Test]
@@ -99,6 +111,25 @@ namespace MCL.BLS12_381.Net.Test
             Assert.AreEqual(GT.One, GT.Pairing(rndG1, G2.Zero));
             var generatorsPairing = GT.Pairing(G1.Generator, G2.Generator);
             Assert.AreEqual(GT.Pow(generatorsPairing, fr1 * fr2), GT.Pairing(rndG1, rndG2));
+        }
+
+        [Test]
+        public void TestMillerLoop()
+        {
+            var p = G1.Generator * Fr.GetRandom();
+            var q = G2.Generator * Fr.GetRandom();
+            Assert.AreEqual(
+                GT.Pairing(p, q),
+                GT.FinalExp(GT.MillerLoop(p, q))
+            );
+            var r = G1.Generator * Fr.GetRandom();
+            var s = G2.Generator * Fr.GetRandom();
+            var pqLoop = GT.MillerLoop(p, q);
+            var rsLoop = GT.MillerLoop(r, s);
+            Assert.AreEqual(
+                GT.Pairing(p, q) * GT.Pairing(r, s),
+                GT.FinalExp(pqLoop * rsLoop)
+            );
         }
 
         [Test]

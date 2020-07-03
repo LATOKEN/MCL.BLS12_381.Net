@@ -20,7 +20,7 @@ namespace MCL.BLS12_381.Net
     public unsafe delegate int mclBnFr_setStr(Fr* x, void* input, ulong bufSize, int ioMode);
 
     [SymbolName(nameof(mclBnFr_getStr))]
-    public unsafe delegate int mclBnFr_getStr(void* output, ulong maxBufSize, Fr* x, int ioMode);
+    public unsafe delegate ulong mclBnFr_getStr(void* output, ulong maxBufSize, Fr* x, int ioMode);
 
     [SymbolName(nameof(mclBnFr_isValid))]
     public unsafe delegate int mclBnFr_isValid(Fr* x);

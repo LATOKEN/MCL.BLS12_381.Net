@@ -81,7 +81,6 @@ namespace MCL.BLS12_381.Net
 
         const string Lib = "mclbn384_256";
 
-        public static string LibPath => LibPathLazy.Value;
         private static readonly Lazy<string> LibPathLazy = new Lazy<string>(() => LibPathResolver.Resolve(Lib));
         private static readonly Lazy<IntPtr> LibPtr = new Lazy<IntPtr>(() => LoadLibNative.LoadLib(LibPathLazy.Value));
 

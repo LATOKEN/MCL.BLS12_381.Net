@@ -94,13 +94,14 @@ namespace MCL.BLS12_381.Net
             {
                 const int maxBufSize = 1024;
                 Span<byte> res = stackalloc byte[maxBufSize];
+                ulong len;
                 fixed (G2* ptr = &this)
                 fixed (byte* resPtr = res)
                 {
-                    MclBls12381.Imports.MclBnG2GetStr.Value(resPtr, maxBufSize, ptr, (int) ioMode);
+                    len = MclBls12381.Imports.MclBnG2GetStr.Value(resPtr, maxBufSize, ptr, (int) ioMode);
                 }
 
-                return res.ToArray();
+                return res.Slice(0, (int) len).ToArray();
             }
         }
 
@@ -183,6 +184,7 @@ namespace MCL.BLS12_381.Net
 
         public static bool operator ==(G2 x, G2 y)
         {
+            if (x.IsZero()) return y.IsZero();
             unsafe
             {
                 return MclBls12381.Imports.MclBnG2IsEqual.Value(&x, &y) != 0;

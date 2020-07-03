@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using NUnit.Framework;
 
@@ -23,7 +24,7 @@ namespace MCL.BLS12_381.Net.Test
                 res = res * pt + coeffs[i];
             Assert.AreEqual(res, MclBls12381.EvaluatePolynomial(coeffs, pt));
         }
-        
+
         [Test]
         public void TestPolyEvaluationG2()
         {
@@ -37,7 +38,7 @@ namespace MCL.BLS12_381.Net.Test
                 res = res * pt + coeffs[i];
             Assert.AreEqual(res, MclBls12381.EvaluatePolynomial(coeffs, pt));
         }
-        
+
         [Test]
         public void TestPolyEvaluationFr()
         {
@@ -67,8 +68,9 @@ namespace MCL.BLS12_381.Net.Test
                 .ToArray();
             var intercept = MclBls12381.EvaluatePolynomial(coeffs, Fr.FromInt(0));
             Assert.AreEqual(intercept, MclBls12381.LagrangeInterpolate(xs, ys));
+            Assert.Throws<ArgumentException>(() => MclBls12381.LagrangeInterpolate(xs, ys.Take(degree - 1).ToArray()));
         }
-        
+
         [Test]
         public void TestPolyInterpolationG2()
         {
@@ -84,8 +86,9 @@ namespace MCL.BLS12_381.Net.Test
                 .ToArray();
             var intercept = MclBls12381.EvaluatePolynomial(coeffs, Fr.FromInt(0));
             Assert.AreEqual(intercept, MclBls12381.LagrangeInterpolate(xs, ys));
+            Assert.Throws<ArgumentException>(() => MclBls12381.LagrangeInterpolate(xs, ys.Take(degree - 1).ToArray()));
         }
-        
+
         [Test]
         public void TestPolyInterpolationFr()
         {
@@ -101,8 +104,9 @@ namespace MCL.BLS12_381.Net.Test
                 .ToArray();
             var intercept = MclBls12381.EvaluatePolynomial(coeffs, Fr.FromInt(0));
             Assert.AreEqual(intercept, MclBls12381.LagrangeInterpolate(xs, ys));
+            Assert.Throws<ArgumentException>(() => MclBls12381.LagrangeInterpolate(xs, ys.Take(degree - 1).ToArray()));
         }
-        
+
         [Test]
         public void TestPowersCalculation()
         {

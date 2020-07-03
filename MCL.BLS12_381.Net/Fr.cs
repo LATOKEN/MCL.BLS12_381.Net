@@ -34,13 +34,6 @@ namespace MCL.BLS12_381.Net
             return res;
         }
 
-        public static Fr FromBytes(Span<byte> bytes, IoMode ioMode)
-        {
-            var res = new Fr();
-            res.SetBytes(bytes, ioMode);
-            return res;
-        }
-
         public void Clear()
         {
             unsafe
@@ -93,7 +86,7 @@ namespace MCL.BLS12_381.Net
                     var size = MclBls12381.Imports.MclBnFrGetStr.Value(bufPtr, maxSize, ptr, (int) ioMode);
                     if (size == 0 || size > 1024)
                         throw new InvalidOperationException("mclBnFr_getStr failed to serialize Fr");
-                    return buf.Slice(0, size).ToArray();
+                    return buf.Slice(0, (int) size).ToArray();
                 }
             }
         }
@@ -106,21 +99,6 @@ namespace MCL.BLS12_381.Net
                 fixed (byte* bytesPtr = bytes)
                 {
                     var size = MclBls12381.Imports.MclBnFrDeserialize.Value(ptr, bytesPtr, (ulong) bytes.Length);
-                    if (size == 0) throw new InvalidOperationException("mclBnFr_setStr failed to deserialize Fr");
-                }
-            }
-        }
-
-        public void SetBytes(Span<byte> bytes, IoMode ioMode)
-        {
-            unsafe
-            {
-                fixed (Fr* ptr = &this)
-                fixed (byte* bytesPtr = bytes)
-                {
-                    var size = MclBls12381.Imports.MclBnFrSetStr.Value(
-                        ptr, bytesPtr, (ulong) bytes.Length, (int) ioMode
-                    );
                     if (size == 0) throw new InvalidOperationException("mclBnFr_setStr failed to deserialize Fr");
                 }
             }

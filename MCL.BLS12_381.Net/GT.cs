@@ -58,7 +58,7 @@ namespace MCL.BLS12_381.Net
         {
             unsafe
             {
-                const int maxSize = 1024;
+                const int maxSize = 2048;
                 Span<byte> buf = stackalloc byte[maxSize];
                 fixed (GT* ptr = &this)
                 fixed (byte* bufPtr = buf)
@@ -275,25 +275,23 @@ namespace MCL.BLS12_381.Net
             return res;
         }
 
-        public void FinalExp(GT x)
+        public static GT FinalExp(GT x)
         {
             unsafe
             {
-                fixed (GT* ptr = &this)
-                {
-                    MclBls12381.Imports.MclBnFinalExp.Value(ptr, &x);
-                }
+                GT res;
+                MclBls12381.Imports.MclBnFinalExp.Value(&res, &x);
+                return res;
             }
         }
 
-        public void MillerLoop(G1 x, G2 y)
+        public static GT MillerLoop(G1 x, G2 y)
         {
             unsafe
             {
-                fixed (GT* ptr = &this)
-                {
-                    MclBls12381.Imports.MclBnMillerLoop.Value(ptr, &x, &y);
-                }
+                GT res;
+                MclBls12381.Imports.MclBnMillerLoop.Value(&res, &x, &y);
+                return res;
             }
         }
 
